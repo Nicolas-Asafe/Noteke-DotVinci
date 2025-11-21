@@ -12,6 +12,7 @@ export const variables = {
         PORT:process.env.DB_PORT || 5432,
         USER:process.env.DB_USER || 'user',
         PASSWORD:process.env.DB_PASSWORD || 'password',
-        NAME:process.env.DB_NAME || 'noteke_db'
+        NAME:process.env.DB_NAME || 'noteke_db',
+        CONNECTION_STRING:process.env.CONNECTION_STRING || 'postgresql://user:password@localhost:5432/noteke_db'
     }
 };
