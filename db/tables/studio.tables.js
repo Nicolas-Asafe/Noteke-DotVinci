@@ -8,6 +8,7 @@ async function createStudioTable(pool) {
         images JSONB,
         orgnizations_id UUID,
         devs_id UUID[]
+        users INT DEFAULT 0,
     )`;
     try {
         await pool.query(query);
