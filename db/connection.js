@@ -1,6 +1,10 @@
 import { Pool } from "pg";
 import { variables } from "../config/variables.js";
 
+import createStudioTable from "./tables/studio.tables.js";
+import createOrganizationTable from "./tables/org.tables.js";
+import createUserTable from "./tables/user.tables.js";
+
 async function connectToDatabase() {
     try {
         const pool = new Pool({
@@ -19,4 +23,7 @@ async function connectToDatabase() {
     }
 }
 const pool = await connectToDatabase();
+await createOrganizationTable(pool);
+await createStudioTable(pool);
+await createUserTable(pool);
 export default pool
