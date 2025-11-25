@@ -1,29 +1,29 @@
 export default class OrganizationService {
     constructor(organizationRepository) {
         this.organizationRepository = organizationRepository;
-    }
-    async registerOrganization(orgData) {
-        if (!orgData.name || !orgData.description || !orgData.studioId || orgData.html_content || !orgData.data || !orgData.image_icon_id || !orgData.banner_image_id) {
-            throw new Error("Organization name, description, and studioId are required.");
+    }   
+    createOrganization(data) {
+        if (!data || !data.name || !data.description || !data.studioId || !data.html_content || !data.data || !data.image_icon_id || !data.banner_image_id) {
+            throw new Error("All organization fields are required.");
         }
-        return await this.organizationRepository.createOrganization(orgData);
+        return this.organizationRepository.createOrganization(orgId, data);
     }
-    async getOrganizationProfile(orgId) {       
+    getOrganizationById(orgId) {
         if (!orgId) {
-            throw new Error("Organization ID is required");
+            throw new Error("Organization ID is required.");
         }
-        return await this.organizationRepository.getOrganizationById(orgId);
+        return this.organizationRepository.getOrganizationById(orgId);
     }
-    async updateOrganizationProfile(orgId, updatedData) {
+    updateOrganization(orgId, updatedData) {
         if (!orgId || !updatedData) {
-            throw new Error("Organization ID and updated data are required");
+            throw new Error("Organization ID and updated data are required.");
         }
-        return await this.organizationRepository.updateOrganization(orgId, updatedData);
+        return this.organizationRepository.updateOrganization(orgId, updatedData);
     }
-    async deleteOrganizationAccount(orgId) {
+    deleteOrganization(orgId) {
         if (!orgId) {
-            throw new Error("Organization ID is required");
-        }
-        return await this.organizationRepository.deleteOrganization(orgId);
+            throw new Error("Organization ID is required.");
+        }  
+        return this.organizationRepository.deleteOrganization(orgId);
     }
 }
