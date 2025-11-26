@@ -6,7 +6,7 @@ async function createStudioTable(pool) {
         description TEXT,
         admin_id UUID NOT NULL,
         images JSONB,
-        orgnizations_id UUID,
+        orgnizations_id UUID[],
         devs_id UUID[],
         users INT DEFAULT 0
     )`;
