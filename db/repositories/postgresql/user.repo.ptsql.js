@@ -1,5 +1,6 @@
 import UserRepository from "../../../core/repositories/user.repositorie.js";
 import pool from "../../../db/connection.js";
+import bcrypt from "bcrypt";
 
 export default class UserRepoPostgresql extends UserRepository {
   async createUser(user) {
@@ -32,10 +33,10 @@ export default class UserRepoPostgresql extends UserRepository {
     try {
       const result = await pool.query(query, values);
       const user = result.rows[0];
-      if (!user) return null;
+      if (!user) throw new Error("User not found");
 
-      const match = await bcrypt.compare(password, user.password);
-      if (!match) return null;
+      const match = await bcrypt.compare(password, user.password_hash);
+      if (!match) throw new Error("Invalid password");
 
       return user;
     } catch (err) {
