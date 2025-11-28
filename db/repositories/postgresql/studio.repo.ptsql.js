@@ -1,4 +1,4 @@
-import StudioRepository from "../../core/repositories/studio.repositorie.js";
+import StudioRepository from "../../../core/repositories/studio.repositorie.js";
 import pool from "../../db/connection.js";
 
 export default class StudioRepoPostgresql extends StudioRepository {
