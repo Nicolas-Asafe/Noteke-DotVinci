@@ -2,9 +2,11 @@ import express from 'express';
 import cors from 'cors';
 import {variables} from '../config/variables.js';
 import pool from '../db/connection.js';
+import XApiKeyMiddleware from './middlewares/xapikey.middleware.js';
 
 const app = express();
 
+app.use(XApiKeyMiddleware);
 app.use(cors());
 app.use(express.json()); 
 
