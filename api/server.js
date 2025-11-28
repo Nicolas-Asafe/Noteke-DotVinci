@@ -3,12 +3,14 @@ import cors from 'cors';
 import {variables} from '../config/variables.js';
 import pool from '../db/connection.js';
 import XApiKeyMiddleware from './middlewares/xapikey.middleware.js';
+import userRouter from './routes/user.route.js';
 
 const app = express();
 
 app.use(XApiKeyMiddleware);
 app.use(cors());
 app.use(express.json()); 
+app.use('/users', userRouter);
 
 app.get('/status', (req, res) => {
   res.json({ status: 'Server is running' });
