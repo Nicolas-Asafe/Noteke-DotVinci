@@ -1,11 +1,11 @@
 import UserRepository from "../../../core/repositories/user.repositorie.js";
-import pool from "../../db/connection.js";
+import pool from "../../../db/connection.js";
 
 export default class UserRepoPostgresql extends UserRepository {
   async createUser(user) {
     const { username, email, passwordhash } = user;
     const query =
-      "INSERT INTO users (username, email, passwordhash) VALUES ($1, $2, $3) RETURNING *";
+      "INSERT INTO users (username, email, password_hash) VALUES ($1, $2, $3) RETURNING *";
     const values = [username, email, passwordhash];
 
     const res = await pool.query(query, values)
