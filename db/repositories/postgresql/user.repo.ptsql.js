@@ -1,4 +1,4 @@
-import UserRepository from "../../core/repositories/user.repositorie.js";
+import UserRepository from "../../../core/repositories/user.repositorie.js";
 import pool from "../../db/connection.js";
 
 export default class UserRepoPostgresql extends UserRepository {
