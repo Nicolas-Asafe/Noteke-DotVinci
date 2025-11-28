@@ -59,4 +59,14 @@ export default class UserRepoPostgresql extends UserRepository {
       .then((result) => result.rows[0])
       .catch((error) => Promise.reject(error));
   }
+  async updateDataOrganization(userid, organizationsid,data) {
+    const query =
+      "UPDATE users SET organizationsid = $2, data = $3 WHERE id = $1 RETURNING *";
+    const values = [userid, organizationsid, data];
+    
+    return pool
+      .query(query, values)
+      .then((result) => result.rows[0])
+      .catch((error) => Promise.reject(error));
+  }
 }
