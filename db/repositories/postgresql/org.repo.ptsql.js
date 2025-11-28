@@ -1,4 +1,4 @@
-import OrgRepository from "../../core/repositories/org.repositorie.js";
+import OrgRepository from "../../../core/repositories/org.repositorie.js";
 import pool from "../../db/connection.js";
 
 export default class OrgRepoPostgresql extends OrgRepository {
