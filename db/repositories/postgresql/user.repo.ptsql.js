@@ -3,33 +3,27 @@ import pool from "../../db/connection.js";
 
 export default class UserRepoPostgresql extends UserRepository {
   async createUser(user) {
-    const { username, email, password } = user;
+    const { username, email, passwordhash } = user;
     const query =
-      "INSERT INTO users (username, email, password) VALUES ($1, $2, $3) RETURNING *";
-    const values = [username, email, password];
+      "INSERT INTO users (username, email, passwordhash) VALUES ($1, $2, $3) RETURNING *";
+    const values = [username, email, passwordhash];
 
-    return pool
-      .query(query, values)
-      .then((result) => result.rows[0])
-      .catch((error) => Promise.reject(error));
+    const res = await pool.query(query, values)
+    return res.rows[0]
   }
   async deleteUser(id) {
     const query = "DELETE FROM users WHERE id = $1";
     const values = [id];
 
-    return pool
-      .query(query, values)
-      .then(() => Promise.resolve())
-      .catch((error) => Promise.reject(error));
+    const res = await pool.query(query, values)
+    return res.rows[0]
   }
   async getUserById(id) {
     const query = "SELECT * FROM users WHERE id = $1";
     const values = [id];
 
-    return pool
-      .query(query, values)
-      .then((result) => result.rows[0])
-      .catch((error) => Promise.reject(error));
+     const res = await pool.query(query, values)
+    return res.rows[0]
   }
   async getUserByLogin(email, password) {
     const query = "SELECT * FROM users WHERE email = $1";
@@ -54,19 +48,15 @@ export default class UserRepoPostgresql extends UserRepository {
       "UPDATE users SET organizationsid = array_append(organizationsid, $2) WHERE id = $1";
     const values = [userid, organizationid];
 
-    return pool
-      .query(query, values)
-      .then((result) => result.rows[0])
-      .catch((error) => Promise.reject(error));
+    const res = await pool.query(query, values)
+    return res.rows[0]
   }
   async updateDataOrganization(userid, organizationsid,data) {
     const query =
       "UPDATE users SET organizationsid = $2, data = $3 WHERE id = $1 RETURNING *";
     const values = [userid, organizationsid, data];
     
-    return pool
-      .query(query, values)
-      .then((result) => result.rows[0])
-      .catch((error) => Promise.reject(error));
+    const res = await pool.query(query, values)
+    return res.rows[0]
   }
 }

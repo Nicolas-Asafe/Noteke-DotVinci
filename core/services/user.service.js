@@ -1,15 +1,16 @@
 import User from "../models/user.model.js";
+import bcrypt from "bcrypt"
 
 export default class UserService {
     constructor(userRepository) {
         this.userRepository = userRepository;
     }
-    createUser(username, email, passwordhash) {
+    async createUser(username, email, passwordhash) {
         if (!username || !email || !passwordhash) {
             throw new Error("Missing required user data fields");
         }
-        const newUser = new User(username, email, bcrypt.hash(passwordhash, 10));
-        return this.userRepository.createUser(newUser);
+        const newUser = new User(username, email, await bcrypt.hash(passwordhash, 10));
+        return await this.userRepository.createUser(newUser);
     }
     getUserById(userId) {
         if (!userId) {
