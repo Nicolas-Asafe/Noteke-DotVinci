@@ -3,5 +3,7 @@ export default class UserRepository {
   getUserById(userId) {}
   deleteUser(userId) {}
   getUserByLogin(email, password) {}
-  addOrg(userId, orgId) {}
+  addOrganizationToUser(userId, orgId) {}
+  removeOrganization(userId, orgId) {}
+  updateDataOrganization(userid,orgid,data){}
 }
