@@ -36,4 +36,16 @@ export default class UserService {
         }
         return this.userRepository.addOrganizationToUser(userId, organizationId);
     }
+    removeOrganizationOfUser(userId, organizationId) {
+        if (!userId || !organizationId) {
+            throw new Error("User ID and Organization ID are required");
+        }
+        return this.userRepository.removeOrganization(userId, organizationId);
+    }
+    updateDataOrganization(userId,organizationId,newdata){
+        if (!userId || !organizationId || !newdata) {
+            throw new Error("User ID , Organization ID and new data are required");
+        }
+        return this.userRepository.updateDataOrganization(userId, organizationId,newdata);
+    }
 }

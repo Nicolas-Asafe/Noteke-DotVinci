@@ -51,6 +51,14 @@ export default class UserRepoPostgresql extends UserRepository {
     const res = await pool.query(query, values)
     return res.rows[0]
   }
+  async removeOrganization(userid, organizationid) {
+    const query =
+      "UPDATE users SET organizationsid = array_remove(organizationsid, $2) WHERE id = $1";
+    const values = [userid, organizationid];
+
+    const res = await pool.query(query, values)
+    return res.rows[0]
+  }
   async updateDataOrganization(userid, organizationsid,data) {
     const query =
       "UPDATE users SET organizationsid = $2, data = $3 WHERE id = $1 RETURNING *";
