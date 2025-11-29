@@ -1,3 +1,4 @@
+import { variables } from "../../config/variables.js";
 import UserService from "../../core/services/user.service.js";
 import UserRepoPostgresql from "../../db/repositories/postgresql/user.repo.ptsql.js";
 import jwt from "jsonwebtoken";
@@ -24,7 +25,7 @@ userController.login = async (req, res) => {
     try{ 
         const {email,passwordhash} = req.body;
         const user = await userService.getUserByLogin(email,passwordhash)
-        const token = jwt.sign({id:user.id, email:user.email}, process.env.JWT_SECRET, {expiresIn:'1h'})
+        const token = jwt.sign({id:user.id}, variables.API.JWT_SECRET, {expiresIn:'1h'})
         res.status(201).json({
             message:"Login successful",
             token
@@ -33,6 +34,14 @@ userController.login = async (req, res) => {
         res.status(400).json({
             message:err.message,
         })
+    }
+}
+userController.person = async (req,res)=>{
+    try{
+        const user = await userService.getUserById(req.user.id)
+        res.status(200).json({user})
+    }catch(err){
+        res.status(400).json({message:"Error for get user: "+err.message})
     }
 }
 

@@ -12,11 +12,11 @@ export default class UserService {
         const newUser = new User(username, email, await bcrypt.hash(passwordhash, 10));
         return await this.userRepository.createUser(newUser);
     }
-    getUserById(userId) {
+    async getUserById(userId) {
         if (!userId) {
             throw new Error("User ID is required");
         }
-        return this.userRepository.getUserById(userId);
+        return await this.userRepository.getUserById(userId);
     }
     deleteUser(userId) {
         if (!userId) {
